@@ -1,34 +1,22 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import {
-  RectButton
-} from "react-native-gesture-handler";
-
-// locales
-import { local } from "./texts";
-const localText = local();
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { RectButton } from "react-native-gesture-handler";
 import { Swipeable } from "./swipeables";
 
-import * as SQLite from "expo-sqlite";
-const db = SQLite.openDatabase("todo.db");
+// récupération des textes
+import { local } from "./texts";
+const localText = local();
+
+// import functions database
+import { selectAllItems } from "./dbAccess";
 
 export function Items({ done: doneHeading, onPressItem, forceUp }) {
   const [items, setItems] = React.useState(null);
 
   React.useEffect(() => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        `select * from items where done = ?;`,
-        [doneHeading ? 1 : 0],
-        (_, { rows: { _array } }) => setItems(_array)
-      );
-    });
+    selectAllItems(doneHeading).then((_array) => setItems(_array));
   }, []);
+
   const heading = doneHeading ? localText.heading.made : localText.heading.todo;
 
   if (!items || items === null || items.length === 0) {

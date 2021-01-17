@@ -1,6 +1,5 @@
 // TODO: cleaning
 import * as SQLite from "expo-sqlite";
-
 export const db = SQLite.openDatabase("todo.db");
 
 // create table
@@ -19,6 +18,24 @@ export const createTable = () => {
         resolve();
       }
     );
+  });
+};
+
+// select all db items
+export const selectAllItems = (doneHeading) => {
+  return new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `select * from items where done = ?;`,
+        [doneHeading ? 1 : 0],
+        (_, { rows: { _array } }) => {
+          resolve(_array);
+        },
+        () => {
+          reject();
+        }
+      );
+    });
   });
 };
 
@@ -114,3 +131,4 @@ export const deleteItem = (id) => {
     );
   });
 };
+

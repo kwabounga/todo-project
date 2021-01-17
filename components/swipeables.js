@@ -83,7 +83,7 @@ export class Swipeable extends Component {
           <RectButton
             style={[styles.rowAction, styles.leftAction]}
             onPress={() => {
-              // alert(this.props.idx);
+              
               if (this.props.done) {
                 reactivateItem(this.props.idx).then(forceUp);
               } else {

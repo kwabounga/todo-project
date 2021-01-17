@@ -1,14 +1,13 @@
 import { Platform, NativeModules } from "react-native";
-// import { DeviceEventEmitter } from "react-native-web";
 
+// récupération du language du mobile
 const deviceLanguage =
   Platform.OS === "ios"
     ? NativeModules.SettingsManager.settings.AppleLocale ||
       NativeModules.SettingsManager.settings.AppleLanguages[0] //iOS 13
     : NativeModules.I18nManager.localeIdentifier;
 
-console.log(deviceLanguage); //en_US
-
+// définition des textes de l'application
 const locales = {
   fr_FR: {
     title: "Choses à faire",
@@ -38,6 +37,7 @@ const locales = {
   },
 };
 
+// force le fr sur les variantes
 const languages = {
   fr_BE: "fr_FR",
   "fr_BE@euro": "fr_FR",
@@ -49,6 +49,7 @@ const languages = {
   "fr_LU@euro": "fr_FR",
 };
 
+// récupère les textes Fr ou En en fonction du language du mobile
 export const local = function () {
   if (languages.hasOwnProperty(deviceLanguage)) {
     return locales[languages[deviceLanguage]];
