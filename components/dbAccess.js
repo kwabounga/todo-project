@@ -19,15 +19,6 @@ export const createTable = () => {
         resolve();
       }
     );
-
-    // db.transaction(
-    //   (tx) => {
-    //     tx.executeSql(`update items set done = 1 where id = ?;`, [id]);
-    //   },
-    //   ()=>{reject()},
-    //   ()=>{resolve()},
-
-    // );
   });
 };
 

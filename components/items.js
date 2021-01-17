@@ -55,12 +55,8 @@ export function Items({ done: doneHeading, onPressItem, forceUp }) {
         {" "}
         {heading}{" "}
       </Text>
-      {items.map(({ id, done, value}) => (
-        <Swipeable key={"swipe_" + id}
-            done={done}
-            idx={id}
-            forceUp={forceUp}
-            >
+      {items.map(({ id, done, value }) => (
+        <Swipeable key={"swipe_" + id} done={done} idx={id} forceUp={forceUp}>
           <RectButton enabled={false} style={styles.rectButton}>
             <TouchableOpacity
               key={id}
@@ -94,7 +90,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginHorizontal: 16,
   },
-  rectButton: {    
-    backgroundColor: 'transparent',
+  rectButton: {
+    backgroundColor: "transparent",
   },
 });

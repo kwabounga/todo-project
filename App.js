@@ -42,8 +42,6 @@ export default function App() {
     // console.log(local());
   }, []);
 
-  
-
   // _loadFontsAsync()
   if (!fontsLoaded) {
     return <AppLoading />;

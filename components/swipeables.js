@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import {
-  Animated,
-  Text,
-  
-  StyleSheet,
-  View,
-} from "react-native";
+import { Animated, Text, StyleSheet, View } from "react-native";
 import {
   PanGestureHandler,
   State,
@@ -17,7 +11,14 @@ import { local } from "./texts";
 const localText = local();
 
 import { USE_NATIVE_DRIVER } from "../config";
-import {db, addItem, removeItem, reactivateItem, archivateItem , deleteItem} from "./dbAccess";
+import {
+  db,
+  addItem,
+  removeItem,
+  reactivateItem,
+  archivateItem,
+  deleteItem,
+} from "./dbAccess";
 
 const RATIO = 3;
 export class Swipeable extends Component {
@@ -77,23 +78,26 @@ export class Swipeable extends Component {
   };
   render() {
     const { children, forceUp } = this.props;
-    
+
     return (
       <View>
         <Animated.View
           style={[styles.rowAction, { opacity: this._showLeftAction }]}>
           <RectButton
             style={[styles.rowAction, styles.leftAction]}
-            onPress={()=>{
+            onPress={() => {
               // alert(this.props.idx);
-              if(this.props.done) {
-                reactivateItem(this.props.idx).then(forceUp)
-              }else {
-                archivateItem(this.props.idx).then(forceUp)
-              }  
-              
+              if (this.props.done) {
+                reactivateItem(this.props.idx).then(forceUp);
+              } else {
+                archivateItem(this.props.idx).then(forceUp);
+              }
             }}>
-            <Text style={styles.actionButtonTextLeft}>{this.props.done?localText.swipeables.reactivate:localText.swipeables.archivate}</Text>
+            <Text style={styles.actionButtonTextLeft}>
+              {this.props.done
+                ? localText.swipeables.reactivate
+                : localText.swipeables.archivate}
+            </Text>
           </RectButton>
         </Animated.View>
         <Animated.View
@@ -101,11 +105,13 @@ export class Swipeable extends Component {
           <RectButton
             style={[styles.rowAction, styles.rightAction]}
             // onPress={this._reset}>
-            onPress={()=>{
+            onPress={() => {
               // alert(this.props.idx);
-              deleteItem(this.props.idx).then(()=>forceUp())
-              }}>
-            <Text style={styles.actionButtonTextRight}>{localText.swipeables.delete}</Text>
+              deleteItem(this.props.idx).then(() => forceUp());
+            }}>
+            <Text style={styles.actionButtonTextRight}>
+              {localText.swipeables.delete}
+            </Text>
           </RectButton>
         </Animated.View>
         <PanGestureHandler
@@ -127,82 +133,78 @@ export class Swipeable extends Component {
   }
 }
 
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   rectButton: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     borderRadius: 3,
     flex: 1,
     height: 60,
     padding: 10,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
   },
   rowAction: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   leftAction: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: "#4CAF50",
     borderRadius: 3,
-    textAlign: 'right',
-    flexDirection:'row',
-    justifyContent: 'flex-start',
-    
+    textAlign: "right",
+    flexDirection: "row",
+    justifyContent: "flex-start",
   },
   rightAction: {
-    backgroundColor: '#F44336',
+    backgroundColor: "#F44336",
     borderRadius: 3,
-    textAlign: 'left',
-    flexDirection:'row',
-    justifyContent: 'flex-end',
-    
+    textAlign: "left",
+    flexDirection: "row",
+    justifyContent: "flex-end",
   },
   actionButtonTextRight: {
     fontFamily: "Fragmentcore",
-    color: 'white',
+    color: "white",
     fontSize: 18,
-    textAlign: 'left',
+    textAlign: "left",
     padding: 8,
   },
   actionButtonTextLeft: {
     fontFamily: "Fragmentcore",
-    color: 'white',
+    color: "white",
     fontSize: 18,
-    textAlign: 'right',
+    textAlign: "right",
     padding: 8,
   },
   buttonDelimiter: {
     height: 1,
-    backgroundColor: '#999',
+    backgroundColor: "#999",
   },
   buttonText: {
-    fontWeight: 'bold',
-    backgroundColor: 'transparent',
+    fontWeight: "bold",
+    backgroundColor: "transparent",
   },
   infoButton: {
     width: 40,
     height: 40,
   },
   infoButtonBorders: {
-    borderColor: '#467AFB',
+    borderColor: "#467AFB",
     borderWidth: 2,
     width: 20,
     height: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 10,
     margin: 10,
   },
   infoButtonText: {
-    color: '#467AFB',
-    fontWeight: 'bold',
-    backgroundColor: 'transparent',
+    color: "#467AFB",
+    fontWeight: "bold",
+    backgroundColor: "transparent",
   },
 });

@@ -1,75 +1,58 @@
-import { Platform, NativeModules } from 'react-native'
+import { Platform, NativeModules } from "react-native";
+import { DeviceEventEmitter } from "react-native-web";
 
 const deviceLanguage =
-      Platform.OS === 'ios'
-        ? NativeModules.SettingsManager.settings.AppleLocale ||
-          NativeModules.SettingsManager.settings.AppleLanguages[0] //iOS 13
-        : NativeModules.I18nManager.localeIdentifier;
+  Platform.OS === "ios"
+    ? NativeModules.SettingsManager.settings.AppleLocale ||
+      NativeModules.SettingsManager.settings.AppleLanguages[0] //iOS 13
+    : NativeModules.I18nManager.localeIdentifier;
 
 console.log(deviceLanguage); //en_US
 
 const locales = {
-    fr_FR:{
-        title:"Choses à faire",
-        input:"Qu'est-ce que vous voulez faire ?",
-        heading:{
-            todo:"À faire:",
-            made:"Fait!"
-        },
-        swipeables:{
-            archivate:"Archiver",
-            reactivate:"Réactiver",
-            delete:"Supprimer",
-        }
+  fr_FR: {
+    title: "Choses à faire",
+    input: "Qu'est-ce que vous voulez faire ?",
+    heading: {
+      todo: "À faire:",
+      made: "Fait!",
     },
-    en_US:{
-        title:"Things to do",
-        input:"What do you want to do ?",
-        heading:{
-            todo:"To do:",
-            made:"Made!"
-        },
-        swipeables:{
-            archivate:"Archive",
-            reactivate:"Reactivate",
-            delete:"Delete",
-        }
+    swipeables: {
+      archivate: "Archiver",
+      reactivate: "Réactiver",
+      delete: "Supprimer",
     },
-}
+  },
+  en_US: {
+    title: "Things to do",
+    input: "What do you want to do ?",
+    heading: {
+      todo: "To do:",
+      made: "Made!",
+    },
+    swipeables: {
+      archivate: "Archive",
+      reactivate: "Reactivate",
+      delete: "Delete",
+    },
+  },
+};
 
-export const local = () => {
-    let language  = '';
-    switch (deviceLanguage) { 
-        case 'fr_BE':
-        case 'fr_BE@euro':
-        case 'fr_CA':
-        case 'fr_CH':
-        case 'fr_FR':
-        case 'fr_FR@euro':
-        case 'fr_LU':
-        case 'fr_LU@euro':   
-            language = 'fr_FR';
-            break;
-        case 'en_AG':
-        case 'en_AU':
-        case 'en_BW':
-        case 'en_CA':
-        case 'en_DK':
-        case 'en_GB':
-        case 'en_HK':
-        case 'en_IE':
-        case 'en_IN':
-        case 'en_NG':
-        case 'en_NZ':
-        case 'en_PH':
-        case 'en_SG':
-        case 'en_US':
-        case 'en_ZA':
-        case 'en_ZM':
-        case 'en_ZW':
-        default:
-            language = 'en_US';
-            break;
-    }
-    return  locales[language];
-}
+const languages = {
+  fr_BE: "fr_FR",
+  "fr_BE@euro": "fr_FR",
+  fr_CA: "fr_FR",
+  fr_CH: "fr_FR",
+  fr_FR: "fr_FR",
+  "fr_FR@euro": "fr_FR",
+  fr_LU: "fr_FR",
+  "fr_LU@euro": "fr_FR",
+};
+
+export const local = function () {
+  if (languages.hasOwnProperty(deviceLanguage)) {
+    return locales[languages[deviceLanguage]];
+  } else {
+    return locales["en_US"];
+  }
+};
