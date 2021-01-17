@@ -11,3 +11,10 @@ web-build/
 
 # macOS
 .DS_Store
+
+# dossiers de travail et fichiers perso
+builds/
+src_assets/
+*.psd
+*.psb
+.git/
