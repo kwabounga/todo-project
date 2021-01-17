@@ -7,7 +7,7 @@ import {
 } from "react-native-gesture-handler";
 
 // locales
-import { local } from "./texts";
+import { local } from "../exports/texts";
 const localText = local();
 
 import { USE_NATIVE_DRIVER } from "../config";
@@ -15,7 +15,7 @@ import {
   reactivateItem,
   archivateItem,
   deleteItem,
-} from "./dbAccess";
+} from "../exports/dbAccess";
 
 const RATIO = 3;
 export class Swipeable extends Component {

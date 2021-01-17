@@ -4,11 +4,11 @@ import { RectButton } from "react-native-gesture-handler";
 import { Swipeable } from "./swipeables";
 
 // récupération des textes
-import { local } from "./texts";
+import { local } from "../exports/texts";
 const localText = local();
 
 // import functions database
-import { selectAllItems } from "./dbAccess";
+import { selectAllItems } from "../exports/dbAccess";
 
 export function Items({ done: doneHeading, onPressItem, forceUp }) {
   const [items, setItems] = React.useState(null);

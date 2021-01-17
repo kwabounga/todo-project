@@ -11,7 +11,7 @@ import {
 import Constants from "expo-constants";
 
 // locales
-import { local } from "./components/texts";
+import { local } from "./exports/texts";
 const localText = local();
 // import * as Font from 'expo-font';
 import { useFonts } from "expo-font";
@@ -21,7 +21,7 @@ import AppLoading from "expo-app-loading";
 import { Items } from "./components/items";
 
 // Database
-import { createTable, addItem, archivateItem } from "./components/dbAccess";
+import { createTable, addItem, archivateItem } from "./exports/dbAccess";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
