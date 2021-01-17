@@ -33,16 +33,9 @@ export default function App() {
   const [forceUpdate, forceUpdateId] = useForceUpdate();
 
   React.useEffect(() => {
-    // db.transaction((tx) => {
-    //   tx.executeSql(
-    //     "create table if not exists items (id integer primary key not null, done int, value text);"
-    //   );
-    // });
     createTable();
-    // console.log(local());
   }, []);
 
-  // _loadFontsAsync()
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {

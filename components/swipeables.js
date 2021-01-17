@@ -12,9 +12,6 @@ const localText = local();
 
 import { USE_NATIVE_DRIVER } from "../config";
 import {
-  db,
-  addItem,
-  removeItem,
   reactivateItem,
   archivateItem,
   deleteItem,
@@ -104,9 +101,7 @@ export class Swipeable extends Component {
           style={[styles.rowAction, { opacity: this._showRightAction }]}>
           <RectButton
             style={[styles.rowAction, styles.rightAction]}
-            // onPress={this._reset}>
             onPress={() => {
-              // alert(this.props.idx);
               deleteItem(this.props.idx).then(() => forceUp());
             }}>
             <Text style={styles.actionButtonTextRight}>
@@ -179,32 +174,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "right",
     padding: 8,
-  },
-  buttonDelimiter: {
-    height: 1,
-    backgroundColor: "#999",
-  },
-  buttonText: {
-    fontWeight: "bold",
-    backgroundColor: "transparent",
-  },
-  infoButton: {
-    width: 40,
-    height: 40,
-  },
-  infoButtonBorders: {
-    borderColor: "#467AFB",
-    borderWidth: 2,
-    width: 20,
-    height: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
-    margin: 10,
-  },
-  infoButtonText: {
-    color: "#467AFB",
-    fontWeight: "bold",
-    backgroundColor: "transparent",
   },
 });

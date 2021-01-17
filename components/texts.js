@@ -1,5 +1,5 @@
 import { Platform, NativeModules } from "react-native";
-import { DeviceEventEmitter } from "react-native-web";
+// import { DeviceEventEmitter } from "react-native-web";
 
 const deviceLanguage =
   Platform.OS === "ios"

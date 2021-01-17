@@ -1,18 +1,12 @@
 import React from "react";
 import {
-  Animated,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import {
-  PanGestureHandler,
-  ScrollView,
-  State,
-  RectButton,
-  BorderlessButton,
-  LongPressGestureHandler,
+  RectButton
 } from "react-native-gesture-handler";
 
 // locales
