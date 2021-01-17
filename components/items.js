@@ -15,6 +15,9 @@ import {
   LongPressGestureHandler,
 } from "react-native-gesture-handler";
 
+// locales
+import { local } from "./texts";
+const localText = local();
 import { Swipeable } from "./swipeables";
 
 import * as SQLite from "expo-sqlite";
@@ -32,7 +35,7 @@ export function Items({ done: doneHeading, onPressItem, forceUp }) {
       );
     });
   }, []);
-  const heading = doneHeading ? "Fait!" : "A faire";
+  const heading = doneHeading ? localText.heading.made : localText.heading.todo;
 
   if (!items || items === null || items.length === 0) {
     return null;

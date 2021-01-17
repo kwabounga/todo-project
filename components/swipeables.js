@@ -12,6 +12,10 @@ import {
   RectButton,
 } from "react-native-gesture-handler";
 
+// locales
+import { local } from "./texts";
+const localText = local();
+
 import { USE_NATIVE_DRIVER } from "../config";
 import {db, addItem, removeItem, reactivateItem, archivateItem , deleteItem} from "./dbAccess";
 
@@ -89,7 +93,7 @@ export class Swipeable extends Component {
               }  
               
             }}>
-            <Text style={styles.actionButtonTextLeft}>{this.props.done?'Réactiver':'Archiver'}</Text>
+            <Text style={styles.actionButtonTextLeft}>{this.props.done?localText.swipeables.reactivate:localText.swipeables.archivate}</Text>
           </RectButton>
         </Animated.View>
         <Animated.View
@@ -101,7 +105,7 @@ export class Swipeable extends Component {
               // alert(this.props.idx);
               deleteItem(this.props.idx).then(()=>forceUp())
               }}>
-            <Text style={styles.actionButtonTextRight}>Supprimer</Text>
+            <Text style={styles.actionButtonTextRight}>{localText.swipeables.delete}</Text>
           </RectButton>
         </Animated.View>
         <PanGestureHandler
@@ -161,14 +165,16 @@ const styles = StyleSheet.create({
     
   },
   actionButtonTextRight: {
+    fontFamily: "Fragmentcore",
     color: 'white',
-    fontSize: 16,
+    fontSize: 18,
     textAlign: 'left',
     padding: 8,
   },
   actionButtonTextLeft: {
+    fontFamily: "Fragmentcore",
     color: 'white',
-    fontSize: 16,
+    fontSize: 18,
     textAlign: 'right',
     padding: 8,
   },

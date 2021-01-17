@@ -9,16 +9,20 @@ import {
   View,
 } from "react-native";
 import Constants from "expo-constants";
-import * as SQLite from "expo-sqlite";
 
+// locales
+import { local } from "./components/texts";
+const localText = local();
 // import * as Font from 'expo-font';
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 
 // Items
 import { Items } from "./components/items";
-import {db, addItem, removeItem, reactivateItem, archivateItem , deleteItem} from "./components/dbAccess";
-// const db = SQLite.openDatabase("todo.db");
+
+// Database
+import { createTable, addItem, archivateItem } from "./components/dbAccess";
+
 export default function App() {
   let [fontsLoaded] = useFonts({
     FrederickatheGreat: require("./assets/fonts/FrederickatheGreat-Regular.ttf"),
@@ -29,14 +33,15 @@ export default function App() {
   const [forceUpdate, forceUpdateId] = useForceUpdate();
 
   React.useEffect(() => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        "create table if not exists items (id integer primary key not null, done int, value text);"
-      );
-    });
+    // db.transaction((tx) => {
+    //   tx.executeSql(
+    //     "create table if not exists items (id integer primary key not null, done int, value text);"
+    //   );
+    // });
+    createTable();
+    // console.log(local());
   }, []);
 
-  // adding item to db
   
 
   // _loadFontsAsync()
@@ -46,7 +51,7 @@ export default function App() {
     // render  view
     return (
       <View style={styles.container}>
-        <Text style={styles.heading}>Choses à faire</Text>
+        <Text style={styles.heading}>{localText.title}</Text>
         <View style={styles.flexRow}>
           <TextInput
             onChangeText={(text) => setText(text)}
@@ -54,7 +59,7 @@ export default function App() {
               addItem(text).then(forceUpdate);
               setText(null);
             }}
-            placeholder="Qu'est ce que tu veux faire ?"
+            placeholder={localText.input}
             style={styles.input}
             value={text}
           />
@@ -63,14 +68,15 @@ export default function App() {
           <Items
             key={`forceupdate-todo-${forceUpdateId}`}
             done={false}
-              onPressItem={(id) => {archivateItem(id).then(forceUpdate)}}
-              forceUp={forceUpdate}
+            onPressItem={(id) => {
+              archivateItem(id).then(forceUpdate);
+            }}
+            forceUp={forceUpdate}
           />
 
           <Items
             done
             key={`forceupdate-done-${forceUpdateId}`}
-            /*onPressItem={(id) => {deleteItem(id).then(forceUpdate)}}*/
             forceUp={forceUpdate}
           />
         </ScrollView>

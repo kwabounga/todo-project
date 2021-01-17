@@ -1,10 +1,38 @@
-
-import React, { useState } from "react";
-import Constants from "expo-constants";
+// TODO: cleaning
 import * as SQLite from "expo-sqlite";
 
 export const db = SQLite.openDatabase("todo.db");
-export const addItem = (text) => { 
+
+// create table
+export const createTable = () => {
+  return new Promise((resolve, reject) => {
+    db.transaction(
+      (tx) => {
+        tx.executeSql(
+          "create table if not exists items (id integer primary key not null, done int, value text);"
+        );
+      },
+      () => {
+        reject();
+      },
+      () => {
+        resolve();
+      }
+    );
+
+    // db.transaction(
+    //   (tx) => {
+    //     tx.executeSql(`update items set done = 1 where id = ?;`, [id]);
+    //   },
+    //   ()=>{reject()},
+    //   ()=>{resolve()},
+
+    // );
+  });
+};
+
+// adding item in db
+export const addItem = (text) => {
   return new Promise((resolve, reject) => {
     // is text empty?
     if (text === null || text === "") {
@@ -18,70 +46,80 @@ export const addItem = (text) => {
           console.log(JSON.stringify(rows))
         );
       },
-      ()=>{reject()},
-      ()=>{resolve()},
-    );   
-  });   
-    
-  };
+      () => {
+        reject();
+      },
+      () => {
+        resolve();
+      }
+    );
+  });
+};
 
-  // update db item
-  export const updateItem = (id) => {
-    return new Promise((resolve, reject) => {
-      db.transaction(
-        (tx) => {
-          tx.executeSql(`update items set done = 1 where id = ?;`, [id]);
-        },
-        ()=>{reject()},
-        ()=>{resolve()},
-        
-      );      
-    });
-    
-  };
+// update db item [ useless? ]
+export const updateItem = (id) => {
+  return new Promise((resolve, reject) => {
+    db.transaction(
+      (tx) => {
+        tx.executeSql(`update items set done = 1 where id = ?;`, [id]);
+      },
+      () => {
+        reject();
+      },
+      () => {
+        resolve();
+      }
+    );
+  });
+};
 
-  export const archivateItem = (id) => {
-    return new Promise((resolve, reject) => {
-      db.transaction(
-        (tx) => {
-          tx.executeSql(`update items set done = 1 where id = ?;`, [id]);
-        },
-        ()=>{reject()},
-        ()=>{resolve()},
-      );      
-    });    
-  };
-  /*function maFonctionAsynchrone(url) {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open("GET", url);
-      xhr.onload = () => resolve(xhr.responseText);
-      xhr.onerror = () => reject(xhr.statusText);
-      xhr.send();
-    });
-  }*/
-  export const reactivateItem = (id) => {
-    return new Promise((resolve, reject) => {
-      db.transaction(
-        (tx) => {
-          tx.executeSql(`update items set done = 0 where id = ?;`, [id]);
-        },
-        ()=>{reject()},
-        ()=>{resolve()},
-      );      
-    });    
-  };
-  // delete db item
-  export const deleteItem = (id) => {
-    return new Promise((resolve, reject) => {
-      db.transaction(
-        (tx) => {
-          tx.executeSql(`delete from items where id = ?;`, [id]);
-        },
-        ()=>{reject()},
-        ()=>{resolve()},
-      );      
-    });
-    
-  };
-  //TODO : PROMISE OR AWAIT ASYNC
+// archivate db item
+export const archivateItem = (id) => {
+  return new Promise((resolve, reject) => {
+    db.transaction(
+      (tx) => {
+        tx.executeSql(`update items set done = 1 where id = ?;`, [id]);
+      },
+      () => {
+        reject();
+      },
+      () => {
+        resolve();
+      }
+    );
+  });
+};
+
+// reactivating db item
+export const reactivateItem = (id) => {
+  return new Promise((resolve, reject) => {
+    db.transaction(
+      (tx) => {
+        tx.executeSql(`update items set done = 0 where id = ?;`, [id]);
+      },
+      () => {
+        reject();
+      },
+      () => {
+        resolve();
+      }
+    );
+  });
+};
+
+// delete db item
+export const deleteItem = (id) => {
+  return new Promise((resolve, reject) => {
+    db.transaction(
+      (tx) => {
+        tx.executeSql(`delete from items where id = ?;`, [id]);
+      },
+      () => {
+        reject();
+      },
+      () => {
+        resolve();
+      }
+    );
+  });
+};
